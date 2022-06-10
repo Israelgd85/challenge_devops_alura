@@ -1,0 +1,7 @@
+echo "# Primeiro Desafio DevOps Alura" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add devops git@github.com:Israelgd85/challenge_devops_alura.git
+git push -u devops main
