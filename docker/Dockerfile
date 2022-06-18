@@ -1,12 +1,12 @@
-FROM python:3
+FROM python:3.6
 
-ENV PYTHONDONTWRITEBYTECONDE=1
-ENV PYTHONUNBUFFERED=1
-RUN apt-get update
+
+# Set environment variables
+ENV PIP_DISABLE_PIP_VERSION_CHECK 1
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
 WORKDIR /code
-COPY ./app/requirements.txt /code/
-RUN /usr/local/bin/python -m pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
-COPY ./app/ /code/
-EXPOSE 8000
-ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+COPY requirements.txt /code/
+RUN pip install -r requirements.txt
+COPY . /code/
