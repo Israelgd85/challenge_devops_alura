@@ -2,11 +2,15 @@ FROM python:3.6
 
 
 # Set environment variables
-ENV PIP_DISABLE_PIP_VERSION_CHECK 1
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+# Create workdir and copy from you current dir to container workdir
 WORKDIR /code
-COPY requirements.txt /code/
-RUN pip install -r requirements.txt
-COPY . /code/
+COPY . .
+
+# Run commands
+RUN /usr/local/bin/python -m pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
+RUN python manage.py makemigrations && python manage.py migrations
+
